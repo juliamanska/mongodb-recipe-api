@@ -22,3 +22,15 @@ app.listen(5038, () => {
     console.log("Mongo DB Connection Successful");
   });
 });
+
+app.get("/recipeapi/recipeproject/GetRecipes", async (request, response) => {
+  try {
+    const result = await database
+      .collection("recipecollection")
+      .find({})
+      .toArray();
+    response.send(result);
+  } catch (error) {
+    handleDatabaseError(response, error);
+  }
+});
