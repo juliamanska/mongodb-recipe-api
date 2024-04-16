@@ -12,6 +12,11 @@ let CONNECTION_STRING = `mongodb+srv://juliamanska:${password}@cluster0.drwiewz.
 let DATABASENAME = "recipeproject";
 let database;
 
+const handleDatabaseError = (response, error) => {
+  console.error("Database Error:", error);
+  response.status(500).json({ error: "Internal server error" });
+};
+
 app.listen(5038, () => {
   Mongoclient.connect(CONNECTION_STRING, (error, client) => {
     if (error) {
