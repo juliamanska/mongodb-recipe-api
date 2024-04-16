@@ -53,3 +53,17 @@ app.post(
     }
   }
 );
+
+app.delete(
+  "/recipeapi/recipeproject/DeleteRecipes",
+  async (request, response) => {
+    try {
+      await database
+        .collection("recipecollection")
+        .deleteOne({ id: request.query.id });
+      response.json("Recipe deleted successfully");
+    } catch (error) {
+      handleDatabaseError(response, error);
+    }
+  }
+);
