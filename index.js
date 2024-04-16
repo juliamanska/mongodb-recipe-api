@@ -34,3 +34,22 @@ app.get("/recipeapi/recipeproject/GetRecipes", async (request, response) => {
     handleDatabaseError(response, error);
   }
 });
+
+app.post(
+  "/recipeapi/recipeproject/AddRecipes",
+  multer().none(),
+  async (request, response) => {
+    try {
+      const recipe = {
+        id: Date.now().toString(),
+        name: request.body.name,
+        ingredients: request.body.ingredients,
+        recipe: request.body.recipe,
+      };
+      await database.collection("recipecollection").insertOne(recipe);
+      response.json("Recipe added successfully");
+    } catch (error) {
+      handleDatabaseError(response, error);
+    }
+  }
+);
